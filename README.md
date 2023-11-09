@@ -4,7 +4,7 @@
 João Paulo Gonçalves de Souza
 
 
-Matheus Nemer Tamponi
+Matheus Nemer Resende Temponi
 
 
 ## Como instalar:
