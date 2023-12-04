@@ -1,0 +1,72 @@
+Table Pessoa as P {
+  cpf_pessoa varchar (11) [primary key]
+  email varchar (40)
+  nome varchar (60)
+  e_convidado boolean
+  telefone varchar (11)
+  data_nascimento date 
+}
+
+Table Professor as PRF {
+  cpf_professor varchar (11) [primary key]
+  e_orientador boolean
+  e_coorientador boolean
+  graduacao varchar (30)
+  e_mestre boolean
+  e_doutor boolean
+  matricula varchar (20)
+}
+
+Table Aluno as A {
+  cpf_aluno varchar (11) [primary key]
+  idCurso integer
+  idTcc integer
+}
+
+Table Curso as CRS {
+  id integer [primary key]
+  nome varchar (50)
+  carga_horaria integer
+}
+
+Table AlunoOrientador as AO {
+  cpf_aluno varchar (11) [primary key]
+  cpf_professor varchar (11) [primary key]
+  idTcc integer
+}
+
+Table TCC as tcc {
+  id integer [primary key]
+  tema varchar (254)
+  data_entrega date
+  idBancaAvaliadora integer
+}
+
+Table BancaAvaliadora as BA {
+  id integer [primary key]
+  data_avaliacao date
+  nota float
+}
+
+Table Comentario as C {
+  id integer [primary key]
+  idTcc integer
+  cpf_avaliador varchar (11)
+  comentario varchar (254)
+}
+
+Table Avaliador as AV {
+  idBancaAvaliadora integer [primary key]
+  cpf_avaliador varchar (11)
+  idTcc integer
+}
+
+Ref: P.cpf_pessoa - PRF.cpf_professor // one-to-one
+Ref: P.cpf_pessoa - A.cpf_aluno // one-to-one
+Ref: P.cpf_pessoa - AV.cpf_avaliador // one-to-one
+Ref: A.idCurso > CRS.id // many-to-one
+Ref: AO.cpf_professor <> PRF.cpf_professor // many-to-many
+Ref: BA.id <> AV.idBancaAvaliadora // many-to-many
+Ref: TCC.id <> AV.idBancaAvaliadora // many-to-many
+Ref: BA.id < C.idBancaAvaliadora // one-to-many
+Ref: AV.cpf_avaliador < C.cpf_avaliador // one-to-many
